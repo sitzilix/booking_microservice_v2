@@ -15,3 +15,4 @@ class BookResponse(BookBase):
     
     class Config:
         from_attributes = True
+        
