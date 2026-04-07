@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field
 
 class AuthorBase(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
+    name: str = Field(..., min_length=1, max_length=100,
+                      description="The name of the author")
     
 class AuthorCreate(AuthorBase):
     pass
