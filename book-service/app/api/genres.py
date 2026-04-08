@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.schemas.genre import GenreCreate, GenreResponse
 from app.services.genre_service import GenreService
-from app.config import get_db
+from app.database import get_db
 
 router = APIRouter(
     prefix="/genres",

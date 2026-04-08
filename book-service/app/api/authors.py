@@ -3,14 +3,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.schemas.author import AuthorCreate, AuthorResponse
 from app.services.author_service import AuthorService
-from app.config import get_db
+from app.database import get_db
 
 router = APIRouter(
     prefix="/authors", 
     tags=["authors"]
 )
     
-@router.get("/", response_model=list(AuthorResponse))
+@router.get("/", response_model=list[AuthorResponse])
 async def get_authors(db: AsyncSession = Depends(get_db)):
     service = AuthorService(db)
     return await service.get_all_authors()
