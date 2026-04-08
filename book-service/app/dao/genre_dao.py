@@ -20,8 +20,5 @@ class GenreDAO:
         
         db.add(new_genre)
         
-        await db.commit()
-        await db.refresh(new_genre)
-        
         return new_genre
     

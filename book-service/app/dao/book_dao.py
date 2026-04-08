@@ -19,8 +19,5 @@ class BookDAO:
         new_book = Book(**book_create.model_dump())
         
         db.add(new_book)
-        
-        await db.commit()
-        await db.refresh(new_book)
-        
+                
         return new_book

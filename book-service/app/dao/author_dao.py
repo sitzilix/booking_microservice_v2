@@ -20,8 +20,5 @@ class AuthorDAO:
         new_author = Author(**author_create.model_dump())
         
         db.add(new_author)
-        
-        await db.commit()
-        await db.refresh(new_author)
-        
+                
         return new_author

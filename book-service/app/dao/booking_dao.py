@@ -21,8 +21,5 @@ class BookingDAO:
         
         db.add(new_booking)
         
-        await db.commit()
-        await db.refresh(new_booking)
-        
         return new_booking
 
