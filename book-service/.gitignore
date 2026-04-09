@@ -1,7 +1,21 @@
-.env
-__pycache__/
-*.pyc
+# Environments
 .venv/
 env/
+venv/        # <--- Добавь это, так как у тебя папка называется именно так
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDEs
 .vscode/
 .idea/
+
+# OS specific
+.DS_Store    # <--- Для твоего MacBook
+
+# Environment variables
+.env
+
+# Alembic (необязательно, но полезно)
+*.log
