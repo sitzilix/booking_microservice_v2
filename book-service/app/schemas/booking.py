@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 class BookingBase(BaseModel):
@@ -10,9 +12,15 @@ class BookingBase(BaseModel):
 class BookingCreate(BookingBase):
     pass
 
+class BookShort(BaseModel):
+    id: int
+    title: str
+    price: int
+
 class BookingResponse(BookingBase):
     id: int
-    created_at: str
+    created_at: datetime 
+    book: BookShort  # Вложенная схема
     
     class Config:
         from_attributes = True
