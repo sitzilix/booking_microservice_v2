@@ -8,16 +8,18 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
 
-    # Склеиваем URL для SQLAlchemy (тот самый asyncpg, о котором говорили)
     @property
     def database_url(self) -> str:
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
     # Настройки Kafka
-    KAFKA_BOOTSTRAP_SERVERS: str = "localhost:9092"
+    # По умолчанию ставим имя сервиса из docker-compose, но через .env сможем поменять на localhost
+    KAFKA_BOOTSTRAP_SERVERS: str = "kafka:9092"
 
-    # Загрузка переменных из файла .env
-    model_config = SettingsConfigDict(env_file=".env")
+    # Настройки Redis 
+    REDIS_HOST: str = "redis"
+    REDIS_PORT: int = 6379
 
-# Создаем экземпляр, который будем импортировать в другие файлы
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
 settings = Settings()

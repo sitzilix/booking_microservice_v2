@@ -1,4 +1,5 @@
 import asyncio
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import pool
@@ -66,13 +67,25 @@ def do_run_migrations(connection: Connection) -> None:
 
 
 async def run_async_migrations() -> None:
-    """In this scenario we need to create an Engine
-    and associate a connection with the context.
+    # Получаем данные из .env (которые Docker прокинул в контейнер)
+    user = os.getenv("DB_USER", "postgres")
+    password = os.getenv("DB_PASS", "vasek2007")
+    host = os.getenv("DB_HOST", "db")
+    port = os.getenv("DB_PORT", "5432")
+    db_name = os.getenv("DB_NAME", "book_db")
 
-    """
+    # Формируем URL вручную
+    database_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db_name}"
+    
+    # Выводим в логи для отладки (потом можно удалить)
+    print(f"CONNECTING TO: {database_url}")
+
+    # Получаем конфиг и подменяем в нем sqlalchemy.url
+    section = config.get_section(config.config_ini_section, {})
+    section["sqlalchemy.url"] = database_url
 
     connectable = async_engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        section,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
