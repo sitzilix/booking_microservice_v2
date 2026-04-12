@@ -12,6 +12,8 @@ from app.api.bookings import router as booking_router
 # Импорт менеджера Kafka
 from app.core.kafka import kafka_manager
 
+from app.core.exceptions import setup_exception_handlers
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # --- ДЕЙСТВИЯ ПРИ СТАРТЕ ---
@@ -28,6 +30,8 @@ app = FastAPI(
     title="Library API (Book Service)",
     lifespan=lifespan
 )
+
+setup_exception_handlers(app)
 
 # Подключаем роуты
 app.include_router(author_router)
