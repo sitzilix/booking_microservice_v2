@@ -31,13 +31,13 @@ class BookService:
         # 1. Проверяем, существует ли автор
         author = await AuthorDAO.get_by_id(self.db, book_data.author_id)
         if not author:
-            logger.warning(f"Author with ID {book_data.author_id} not found")
-            raise BusinessLogicError(f"Author with ID {book_data.author_id} not found")
+            logger.warning(f"Автор с ID {book_data.author_id} not found")
+            raise BusinessLogicError(f"Автор с ID {book_data.author_id} не найден")
         # 2. Проверяем, существует ли жанр
         genre = await GenreDAO.get_by_id(self.db, book_data.genre_id)
         if not genre:
-            logger.warning(f"Genre with ID {book_data.genre_id} not found")
-            raise BusinessLogicError(f"Genre with ID {book_data.genre_id} not found")
+            logger.warning(f"Жанр с ID {book_data.genre_id} not found")
+            raise BusinessLogicError(f"Жанр с ID {book_data.genre_id} не найден")
 
         # 3. Если всё ок, создаем книгу
         new_book = await BookDAO.create(self.db, book_data)

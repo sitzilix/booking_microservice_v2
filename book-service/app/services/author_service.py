@@ -18,8 +18,8 @@ class AuthorService:
     async def get_author_by_id(self, author_id: int) -> AuthorResponse:
         author = await AuthorDAO.get_by_id(self.db, author_id)
         if not author:
-            logger.warning(f"Author with ID {author_id} not found")
-            raise BusinessLogicError(f"Author with ID {author_id} not found")
+            logger.warning(f"Автор с ID {author_id} не найден")
+            raise BusinessLogicError(f"Автор с ID {author_id} не найден")
     
         return AuthorResponse.model_validate(author)
         
