@@ -40,6 +40,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  notification-service:
+    build:
+      context: ./notification-service
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
   book-service:
     build: ./book-service
