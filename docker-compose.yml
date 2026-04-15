@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:15-alpine
@@ -34,12 +36,12 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    # Добавляем проверку здоровья Кафки
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
       interval: 10s
       timeout: 5s
       retries: 5
+
   notification-service:
     build:
       context: ./notification-service
@@ -54,14 +56,14 @@ services:
     ports:
       - "8001:8000"
     env_file:
-      - ./book-service/.env
+      - .env  
     depends_on:
       db:
         condition: service_started
       redis:
         condition: service_started
       kafka:
-        condition: service_healthy  # Теперь ждем именно "здоровья", а не просто старта
+        condition: service_healthy
 
 volumes:
   db_data:
