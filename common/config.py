@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     DB_USER: str
     DB_PASS: str
     DB_NAME: str
+    JWT_SECRET_KEY: str 
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     @property
     def database_url(self) -> str:
@@ -24,6 +27,9 @@ class Settings(BaseSettings):
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
 
-    model_config = SettingsConfigDict(env_file=os.path.join(BASE_DIR,".env"), extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=os.path.join(BASE_DIR,".env"), 
+        extra="ignore"
+    )
 
 settings = Settings()
