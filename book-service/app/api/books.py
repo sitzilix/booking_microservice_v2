@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.schemas.book import BookCreate, BookResponse
 from app.services.book_service import BookService
-from app.database import get_db
+from common.database import get_db
 
 router = APIRouter(
     prefix="/books",

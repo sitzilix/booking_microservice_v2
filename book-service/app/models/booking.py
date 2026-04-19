@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..database import Base
+from common.database import Base
 
 class Booking(Base):
     __tablename__ = "bookings"

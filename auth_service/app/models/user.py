@@ -1,9 +1,8 @@
 from datetime import datetime
 from sqlalchemy import String, func
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
+from common.database import Base
 
-class Base(DeclarativeBase):
-    pass
 
 class User(Base):
     __tablename__ = "users"

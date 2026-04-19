@@ -3,7 +3,7 @@ from typing import List, Optional
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..database import Base
+from common.database import Base
 
     
 class Book(Base):

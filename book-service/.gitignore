@@ -1,7 +1,7 @@
 # Environments
 .venv/
 env/
-venv/        # <--- Добавь это, так как у тебя папка называется именно так
+venv/     
 
 # Python cache
 __pycache__/
@@ -12,7 +12,7 @@ __pycache__/
 .idea/
 
 # OS specific
-.DS_Store    # <--- Для твоего MacBook
+.DS_Store   
 
 # Environment variables
 .env

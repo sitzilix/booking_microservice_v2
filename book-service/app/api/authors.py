@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.schemas.author import AuthorCreate, AuthorResponse
 from app.services.author_service import AuthorService
-from app.database import get_db
+from common.database import get_db
 
 router = APIRouter(
     prefix="/authors", 

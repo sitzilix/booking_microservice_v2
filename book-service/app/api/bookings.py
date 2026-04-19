@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Header, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.database import get_db
+from common.database import get_db
 from app.schemas.booking import BookingResponse
 from app.services.booking_service import BookingService
 

@@ -1,28 +1,22 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
-# Импорты существующих роутов
 from app.api.authors import router as author_router
 from app.api.genres import router as genre_router
 from app.api.books import router as book_router
 
-# Импорт нового роута бронирования (который мы сейчас создадим)
 from app.api.bookings import router as booking_router
-
-# Импорт менеджера Kafka
 from app.core.kafka import kafka_manager
 
 from app.core.exceptions import setup_exception_handlers
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # --- ДЕЙСТВИЯ ПРИ СТАРТЕ ---
     print("🚀 Запуск сервиса: Подключение к Kafka...")
     await kafka_manager.start()
     
-    yield  # Здесь приложение работает
+    yield 
     
-    # --- ДЕЙСТВИЯ ПРИ ОСТАНОВКЕ ---
     print("🛑 Остановка сервиса: Закрытие соединений...")
     await kafka_manager.stop()
 
