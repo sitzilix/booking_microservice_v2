@@ -10,12 +10,12 @@ router = APIRouter(
     tags=["books"]
 )
 
-@router.get("/", response_model=list[BookResponse])
+@router.get("", response_model=list[BookResponse])
 async def get_books(db: AsyncSession = Depends(get_db)):
     service = BookService(db)
     return await service.get_all_books()
 
-@router.post("/", response_model=BookResponse)
+@router.post("", response_model=BookResponse)
 async def create_book(book: BookCreate, db: AsyncSession = Depends(get_db)):
     service = BookService(db)
     return await service.create_book(book)

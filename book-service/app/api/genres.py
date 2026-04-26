@@ -10,12 +10,12 @@ router = APIRouter(
     tags=["genres"]
 )
 
-@router.get("/", response_model=list[GenreResponse])
+@router.get("", response_model=list[GenreResponse])
 async def get_genres(db: AsyncSession = Depends(get_db)):
     service = GenreService(db)
     return await service.get_all_genres()
 
-@router.post("/", response_model=GenreResponse)
+@router.post("", response_model=GenreResponse)
 async def create_genre(genre: GenreCreate, db: AsyncSession = Depends(get_db)):
     service = GenreService(db)
     return await service.create_genre(genre)

@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from common.database import get_db
 from app.schemas.booking import BookingResponse
 from app.services.booking_service import BookingService
-from app.core.dependencies import get_current_user_id
+from common.dependencies import get_current_user_id
 
 router = APIRouter(prefix="/bookings", tags=["Bookings"])
 

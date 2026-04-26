@@ -10,12 +10,12 @@ router = APIRouter(
     tags=["authors"]
 )
     
-@router.get("/", response_model=list[AuthorResponse])
+@router.get("", response_model=list[AuthorResponse])
 async def get_authors(db: AsyncSession = Depends(get_db)):
     service = AuthorService(db)
     return await service.get_all_authors()
 
-@router.post("/", response_model=AuthorResponse)
+@router.post("", response_model=AuthorResponse)
 async def create_author(author: AuthorCreate, db: AsyncSession = Depends(get_db)):
     service = AuthorService(db)
     return await service.create_author(author)
