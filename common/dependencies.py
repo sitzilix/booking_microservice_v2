@@ -25,8 +25,8 @@ def get_current_user_id(token: str = Depends(oauth2_scheme)) -> int:
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Срок действия токена истек",
         )
-    except jwt.PyJWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Не удалось провалидировать токен",
-        )
+    except jwt.PyJWTError as e:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail=f"Валидация не прошла: {str(e)}",
+            )
