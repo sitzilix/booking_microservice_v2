@@ -40,6 +40,17 @@ services:
       timeout: 5s
       retries: 5
 
+  api_gateway:
+    build:
+      context: .
+      dockerfile: api_gateway/Dockerfile
+    ports:
+      - "8080:8000"
+    depends_on:
+      - auth_service
+      - book-service
+    env_file:
+      - .env
   notification-service:
     build:
       context: ./notification-service
@@ -54,7 +65,7 @@ services:
         context: .                          # ГОВОРИМ: Корень — это папка booking_microservice
         dockerfile: book-service/Dockerfile # ГОВОРИМ: А файл Dockerfile лежит тут
       ports:
-        - "8001:8000"
+        - "8002:8000"
       env_file:
         - .env  
       environment:
@@ -72,7 +83,7 @@ services:
         context: .
         dockerfile: auth_service/Dockerfile
       ports:
-        - "8000:8000"           # Добавь порты, чтобы зайти в Swagger
+       - "8001:8000"           # Добавь порты, чтобы зайти в Swagger
       env_file:
         - .env  
       environment:
