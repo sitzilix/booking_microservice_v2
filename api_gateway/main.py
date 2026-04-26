@@ -1,13 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import httpx
-
-from api_gateway import router
+from api_gateway.router import router as api_router
 
 app = FastAPI(title="API Gateway")
-
-AUTH_SERVICE_URL = "http://auth_service:8001"
-BOOK_SERVICE_URL = "http://book-service:8000"
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,4 +12,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(router)
+app.include_router(api_router, prefix="/api")
