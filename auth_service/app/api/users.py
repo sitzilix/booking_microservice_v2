@@ -5,8 +5,7 @@ from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.services.user_service import UserService
 from common.database import get_db
 
-router = APIRouter(
-    prefix="/Users", 
+router = APIRouter( 
     tags=["users"]
 )
 
