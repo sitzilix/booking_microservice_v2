@@ -11,6 +11,11 @@ class UserCreate(UserBase):
         description="Регистрация пользователя"
     )
 
+class UserToken(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+
 class UserLogin(UserBase):
     password: str = Field(...,
                           description="Логин пользователя")

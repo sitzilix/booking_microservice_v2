@@ -2,8 +2,12 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from common.config import settings
+import redis.asyncio as redis
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="http://localhost:8000/api/Users/login")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="http://localhost:8000/api/login")
+
+redis_client = redis.from_url(settings.redis_url, decode_responses=True)
 
 def get_current_user_id(token: str = Depends(oauth2_scheme)) -> int:
     try:

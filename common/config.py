@@ -12,8 +12,9 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
     JWT_SECRET_KEY: str 
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    REFRESH_TOKEN_EXPIRE_DAYS: int 
 
     @property
     def database_url(self) -> str:
@@ -26,6 +27,10 @@ class Settings(BaseSettings):
     # Настройки Redis 
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
+
+    @property
+    def redis_url(self) -> str:
+        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/0"
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(BASE_DIR,".env"), 
