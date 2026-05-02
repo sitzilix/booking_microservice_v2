@@ -51,7 +51,7 @@ async def consume_notification():
             data = msg.value
             print(f"📥 Получены данные из Kafka: {data}", flush=True)
             
-            email = data.get('email') or "ilya.gudiny2007@gmail.com" 
+            email = data.get('email')
             title = data.get('book_title', 'string')
             
             print(f"📧 Пытаюсь отправить письмо на {email}...", flush=True)
