@@ -37,7 +37,7 @@ async def consume_notification():
         "booking_created",
         bootstrap_servers='kafka:9092', # <-- Если зависнет после настройки, значит ошибка в этом имени!
         group_id="notification-group",
-        auto_offset_reset='earliest',
+        enable_auto_commit=False,
         value_deserializer=lambda v: json.loads(v.decode('utf-8'))
     )
     
@@ -48,16 +48,20 @@ async def consume_notification():
     
     try:
         async for msg in consumer:
-            data = msg.value
-            print(f"📥 Получены данные из Kafka: {data}", flush=True)
-            
-            email = data.get('email')
-            title = data.get('book_title', 'string')
-            
-            print(f"📧 Пытаюсь отправить письмо на {email}...", flush=True)
-            
-            loop = asyncio.get_event_loop()
-            success = await loop.run_in_executor(None, send_email, email, title)
+            try:
+                data = msg.value
+                print(f"📥 Получены данные из Kafka: {data}", flush=True)
+                
+                email = data.get('email')
+                title = data.get('book_title', 'string')
+                
+                print(f"📧 Пытаюсь отправить письмо на {email}...", flush=True)
+                
+                loop = asyncio.get_event_loop()
+                success = await loop.run_in_executor(None, send_email, email, title)
+                await consumer.commit()
+            except Exception:
+                pass
             
             if success:
                 print(f'✅ Письмо успешно ушло на {email}', flush=True)
