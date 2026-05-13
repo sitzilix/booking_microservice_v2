@@ -35,7 +35,7 @@ async def consume_notification():
     
     consumer = AIOKafkaConsumer(
         "booking_created",
-        bootstrap_servers='kafka:9092', # <-- Если зависнет после настройки, значит ошибка в этом имени!
+        bootstrap_servers='kafka:9092',
         group_id="notification-group",
         enable_auto_commit=False,
         value_deserializer=lambda v: json.loads(v.decode('utf-8'))
@@ -60,8 +60,8 @@ async def consume_notification():
                 loop = asyncio.get_event_loop()
                 success = await loop.run_in_executor(None, send_email, email, title)
                 await consumer.commit()
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Ошибка {e}")
             
             if success:
                 print(f'✅ Письмо успешно ушло на {email}', flush=True)

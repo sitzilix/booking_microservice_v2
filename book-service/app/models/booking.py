@@ -12,7 +12,7 @@ class Booking(Base):
     book_id: Mapped[int] = mapped_column(ForeignKey("books.id"))
     
     user_id: Mapped[int] = mapped_column(index=True)
-    
+
     status: Mapped[str] = mapped_column(String(20), default="pending") # pending, confirmed, cancelled
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
     
