@@ -72,7 +72,7 @@ def do_run_migrations(connection: Connection) -> None:
 async def run_async_migrations() -> None:
     # Получаем данные из .env (которые Docker прокинул в контейнер)
     user = os.getenv("DB_USER", "postgres")
-    password = os.getenv("DB_PASS", "vasek2007")
+    password = os.getenv("DB_PASS")
     host = os.getenv("DB_HOST", "db")
     port = os.getenv("DB_PORT", "5432")
     db_name = os.getenv("DB_NAME", "book_db")
